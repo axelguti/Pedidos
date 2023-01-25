@@ -1,7 +1,10 @@
-﻿using PedFast.Views;
+﻿using PedFast.Models;
+using PedFast.Shells;
+using PedFast.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace PedFast.ViewModels
@@ -12,13 +15,29 @@ namespace PedFast.ViewModels
 
         public LoginViewModel()
         {
+
             LoginCommand = new Command(OnLoginClicked);
         }
 
         private async void OnLoginClicked(object obj)
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            if (await Task.Run(() => ValidateUser()))
+            {
+                Application.Current.MainPage = new InicioShell();
+            }
+        }
+        private async Task<bool> ValidateUser()
+        {
+            Cliente cliente = new Cliente();
+            if (await Task.Run(() => cliente) ==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
         }
     }
 }

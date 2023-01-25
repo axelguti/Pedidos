@@ -1,4 +1,5 @@
 ﻿using PedFast.Services;
+using PedFast.Shells;
 using PedFast.Views;
 using System;
 using Xamarin.Forms;
@@ -14,11 +15,12 @@ namespace PedFast
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            
         }
 
         protected override void OnStart()
         {
+            MainPage = new LoginShell();
         }
 
         protected override void OnSleep()

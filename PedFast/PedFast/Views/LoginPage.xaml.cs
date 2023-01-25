@@ -16,6 +16,9 @@ namespace PedFast.Views
         {
             InitializeComponent();
             this.BindingContext = new LoginViewModel();
+            
         }
+
+
     }
 }
